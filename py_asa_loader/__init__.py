@@ -9,7 +9,7 @@ class Loader():
         self.hexFilename = hexFilename
         self.bin = parseHex(hexFilename)
 
-    def checkDevice(self):
+    def checkIsAsaDevice(self):
         # The 'chk' packet is used to check the device is ASA series board.
         # If is, board will response 'ack' packet.
         chk = b'\xFC\xFC\xFC\xFA\x01\x00\x04\x74\x65\x73\x74\xC0'
@@ -41,9 +41,8 @@ class Loader():
             return False
 
     def start(self):
-        print('123')
-        if self.checkDevice() is False:
-            raise Exception("checkDevice fail!")
+        if self.checkIsAsaDevice() is False:
+            raise Exception("checkIsAsaDevice fail!")
 
         times = floor(len(self.bin)/64)
         for i in range(times):
@@ -73,7 +72,7 @@ def parseHex(filename):
                 addres = int(line[3:7], 16)
                 type   = int(line[7:9], 16)
                 bin += bytearray.fromhex(line[9:-3])
-                print('byte:'+str(bytes)+' a:'+str(addres)+' t:'+str(type)+' d:'+line[9:-3])
+                # print('byte:'+str(bytes)+' a:'+str(addres)+' t:'+str(type)+' d:'+line[9:-3])
                 # print(bytearray.fromhex(line[9:-3]))
         finally:
             hexfile.close()
