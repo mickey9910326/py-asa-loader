@@ -1,8 +1,15 @@
 from setuptools import setup, find_packages
 
+REQUIREMENTS = [
+    'setuptools',
+    'pyserial',
+    'progressbar2',
+]
+
+
 setup(
     name='py_ASA_loader',
-    version='0.0.1',
+    version='0.1.0',
     description = 'The program to load binary into ASA series board.',
     long_description='',
     author = 'mickey9910326',
@@ -11,4 +18,10 @@ setup(
     license = 'MIT',
     packages=find_packages(),
     zip_safe=False,
+    entry_points = {
+        'console_scripts': [
+            'asaloader = py_asa_loader.__main__:run',
+        ],
+    },
+    install_requires=REQUIREMENTS
 )

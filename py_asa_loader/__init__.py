@@ -1,6 +1,7 @@
 from math import floor
 import serial
 from time import time,sleep
+import progressbar
 
 class Loader():
     def __init__(self, port, hexFilename):
@@ -16,7 +17,6 @@ class Loader():
         ack = b'\xFC\xFC\xFC\xFB\x01\x00\x04OK!!\xdc'
         self.ser.write(chk)
         get_data = self.ser.readline(len(chk))
-        print(get_data)
         if get_data == ack:
             return True
         else:
@@ -34,7 +34,6 @@ class Loader():
         ret = b'\xFC\xFC\xFC\xFD\x01\x00\x04OK!!\xdc'
         self.ser.write(end)
         get_data = self.ser.read(len(ret))
-        print(get_data)
         if get_data == ret:
             return True
         else:
@@ -44,15 +43,31 @@ class Loader():
         if self.checkIsAsaDevice() is False:
             raise Exception("checkIsAsaDevice fail!")
 
-        times = floor(len(self.bin)/64)
-        for i in range(times):
-            self.loadData(self.bin[i*64:i*64+63])
-            sleep(0.05)
+        times = floor(len(self.bin)/256)
+        remain = len(self.bin)%256
 
-        remain = len(self.bin)/64 - floor(len(self.bin)/64)
+        widgets=[
+            ' [', progressbar.Timer(), '] ',
+            progressbar.Bar(),
+            progressbar.Counter(format='%(percentage)0.2f%%'),
+        ]
         if remain is not 0:
-            self.loadData(self.bin[floor(len(self.bin)/64):-1])
-            sleep(0.05)
+            bar = progressbar.ProgressBar(max_value=times+1, widgets=widgets)
+        else:
+            bar = progressbar.ProgressBar(max_value=times, widgets=widgets)
+
+
+        delay = 0.03
+        for i in range(times):
+            self.loadData(self.bin[i*256:(i+1)*256])
+            bar.update(i)
+            sleep(delay)
+
+        i = i+1
+        if remain is not 0:
+            self.loadData(self.bin[i*256:-1])
+            bar.update(i)
+            sleep(delay)
 
         if self.lastData() is False:
             raise Exception("lastData fail!")
