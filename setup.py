@@ -13,7 +13,7 @@ setup(
     long_description='',
     author = 'mickey9910326',
     author_email = 'mickey9910326@gmail.com',
-    url='https://pypi.org/py-asa-loader',
+    url='https://github.com/mickey9910326/py-asa-loader',
     license = 'MIT',
     packages=find_packages(),
     zip_safe=False,
