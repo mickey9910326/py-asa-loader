@@ -33,6 +33,7 @@ def run():
     for i in range(loader.total_steps):
         try:
             loader.step()
+            bar.update(i)
         except util.ChkDeviceException as e:
             bar.finish(end='\n', dirty=True)
             print('Error: The device is not asa-board.')
