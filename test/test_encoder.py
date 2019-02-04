@@ -1,5 +1,5 @@
 import conftest
-from asaprog.pac_encoder import pac_encode
+from asaprog import pac_encode
 from asaprog.util import *
 
 if __name__ == "__main__":

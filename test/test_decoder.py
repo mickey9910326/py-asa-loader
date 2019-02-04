@@ -1,5 +1,5 @@
 import conftest
-from asaprog.pac_decoder import PacketDecoder
+from asaprog import PacketDecoder
 
 if __name__ == "__main__":
     pd = PacketDecoder()
