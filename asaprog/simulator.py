@@ -33,7 +33,6 @@ class Simulator(object):
                     rep = pac_encode(PAC_ACK2)
                     self.ser.write(rep)
                     print('END rep:{}'.format(rep))
-                    break
 
 ## CLI tool
 def argHandler():
