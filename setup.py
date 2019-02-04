@@ -8,7 +8,7 @@ REQUIREMENTS = [
 
 setup(
     name='py-asa-loader',
-    version='0.2.0',
+    version='0.3.0',
     description = 'The program to load binary into ASA series board.',
     long_description='',
     author = 'mickey9910326',
@@ -19,7 +19,8 @@ setup(
     zip_safe=False,
     entry_points = {
         'console_scripts': [
-            'asaloader = py_asa_loader.__main__:run',
+            'asaloader = asaprog.loader:run',
+            'asadevsim = asaprog.simulator:run',
         ],
     },
     install_requires=REQUIREMENTS
