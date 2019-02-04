@@ -77,6 +77,7 @@ class Loader():
         get_data = self.ser.readline(len(rep))
         if get_data != rep:
             raise EndingException
+        self.ser.close()
 
     def step(self):
         time.sleep(self.magicalDelay)
