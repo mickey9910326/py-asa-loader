@@ -8,7 +8,7 @@ REQUIREMENTS = [
 
 setup(
     name='py-asa-loader',
-    version='0.3.1',
+    version='0.3.2',
     description = 'The program to load binary into ASA series board.',
     long_description='',
     author = 'mickey9910326',
